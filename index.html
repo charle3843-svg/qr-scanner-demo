@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR・バーコードリーダー</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>QR・バーコードリーダー</h1>
+    <p class="subtitle">スマホのカメラでQRコード・バーコードを読み取ります</p>
+  </header>
+
+  <main>
+    <div class="controls">
+      <select id="cameraSelect"></select>
+      <button id="startBtn">スキャン開始</button>
+      <button id="stopBtn" disabled>停止</button>
+    </div>
+
+    <div id="reader"></div>
+
+    <section class="result">
+      <h2>読み取り結果</h2>
+      <div id="resultText">まだ読み取っていません</div>
+    </section>
+
+    <section class="history">
+      <h2>履歴</h2>
+      <ul id="historyList"></ul>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

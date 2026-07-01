@@ -1,0 +1,128 @@
+:root {
+  --primary: #2563eb;
+  --bg: #f5f7fa;
+  --card-bg: #ffffff;
+  --text: #1f2937;
+  --border: #d1d5db;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  background: var(--primary);
+  color: #fff;
+  padding: 1.2rem 1rem;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 0.3rem;
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+select, button {
+  font-size: 1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+#cameraSelect {
+  flex: 2;
+  background: #fff;
+}
+
+#reader {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 1rem;
+  min-height: 250px;
+}
+
+.result, .history {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.result h2, .history h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+#resultText {
+  font-size: 1.1rem;
+  word-break: break-all;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+#historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#historyList li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+#historyList li:last-child {
+  border-bottom: none;
+}
+
+#historyList .time {
+  color: #6b7280;
+  font-size: 0.75rem;
+  display: block;
+}
