@@ -16,8 +16,4 @@ HTML / CSS / JavaScript のみで作られており、[html5-qrcode](https://git
 ## 注意
 
 カメラ(`getUserMedia`)はHTTPS環境またはlocalhostでのみ動作します。GitHub Pagesは自動的にHTTPSになるため、公開後は問題なく動作します。
-````mermaid
-sequenceDiagram
-    A->>B: メッセージ
-    B-->>A: 返答
-````
+
