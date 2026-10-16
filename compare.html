@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>読み取りエンジン比較</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .engine { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; }
+  .engine label { padding: 6px 12px; border: 1px solid #888; border-radius: 6px; }
+  #video { width: 100%; max-width: 500px; display: none; margin: 0 auto; }
+  #log { font-size: 14px; width: 100%; border-collapse: collapse; }
+  #log td, #log th { border: 1px solid #ccc; padding: 4px; word-break: break-all; }
+  #env { font-size: 12px; color: #666; word-break: break-all; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>読み取りエンジン比較</h1>
+    <p class="subtitle">同じバーコードを両方のエンジンで読み、時間を比べます（検証用ページ）</p>
+  </header>
+
+  <main>
+    <div class="engine">
+      <label><input type="radio" name="engine" value="html5" checked> 現行（html5-qrcode）</label>
+      <label><input type="radio" name="engine" value="wasm"> zxing-wasm</label>
+    </div>
+    <div class="controls">
+      <button id="startBtn">スキャン開始</button>
+      <button id="stopBtn" disabled>停止</button>
+    </div>
+
+    <div id="reader"></div>
+    <video id="video" playsinline muted></video>
+
+    <section class="result">
+      <h2>結果</h2>
+      <div id="resultText">まだ読み取っていません</div>
+      <table id="log">
+        <thead><tr><th>エンジン</th><th>秒</th><th>形式</th><th>内容</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p id="env"></p>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/zxing-wasm@2.1.0/dist/iife/reader/index.js"></script>
+  <script src="compare.js"></script>
+</body>
+</html>
