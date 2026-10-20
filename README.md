@@ -15,7 +15,7 @@ HTML / CSS / JavaScript のみで作られており、[zxing-wasm](https://githu
 
 ## 呼び出し元のアプリと連携する
 
-- `returnUrl` は URL エンコードして渡す。戻り先URLに自分のパラメータを含めてもよい（例：`returnUrl=https://example.github.io/app/?target=member` → `https://example.github.io/app/?target=member&code=M001` に戻る）
+- `returnUrl` は URL エンコードして渡す。戻り先URLに自分のパラメータを含めてもよい（例：`returnUrl=https://example.github.io/app/?target=member` → `https://example.github.io/app/?target=member&code=1` に戻る）
 - 初めての戻り先では「〇〇に読み取り結果を送ります」と確認が出る。「送る」を押したホスト名は記憶され、次回からは確認なしで戻る
 - `http:` / `https:` 以外の戻り先（`javascript:` など）には送らない
 - 会員証などを自作する場合は、QRコードか CODE128 を推奨。EAN / JAN / UPC はチェックデジットが付くため、「1」「2」のような単純な番号をそのまま表せない
