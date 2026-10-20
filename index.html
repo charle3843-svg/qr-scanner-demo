@@ -18,7 +18,7 @@
       <button id="stopBtn" disabled>停止</button>
     </div>
 
-    <div id="reader"></div>
+    <div id="reader"><video id="video" playsinline muted></video></div>
 
     <section class="result">
       <h2>読み取り結果</h2>
@@ -32,7 +32,7 @@
     </section>
   </main>
 
-  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/zxing-wasm@2.1.0/dist/iife/reader/index.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

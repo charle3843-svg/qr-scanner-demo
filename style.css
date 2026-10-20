@@ -73,6 +73,11 @@ button:disabled {
   min-height: 250px;
 }
 
+#reader video {
+  display: block;
+  width: 100%;
+}
+
 .result {
   background: var(--card-bg);
   border-radius: 12px;

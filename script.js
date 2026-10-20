@@ -78,19 +78,12 @@ function redirectWithCode(decodedText) {
   };
 }
 
-const html5QrCode = new Html5Qrcode("reader", {
-  formatsToSupport: [
-    Html5QrcodeSupportedFormats.QR_CODE,
-    Html5QrcodeSupportedFormats.EAN_13,
-    Html5QrcodeSupportedFormats.EAN_8,
-    Html5QrcodeSupportedFormats.UPC_A,
-    Html5QrcodeSupportedFormats.UPC_E,
-    Html5QrcodeSupportedFormats.CODE_39,
-    Html5QrcodeSupportedFormats.CODE_128,
-    Html5QrcodeSupportedFormats.ITF,
-  ],
-  verbose: false,
-});
+const video = document.getElementById("video");
+
+const FORMATS = ["QRCode", "EAN-13", "EAN-8", "UPC-A", "UPC-E", "Code39", "Code128", "ITF"];
+
+let stream = null;
+let scanning = false;
 
 function onScanSuccess(decodedText) {
   resultText.textContent = decodedText;
@@ -106,30 +99,58 @@ function onScanSuccess(decodedText) {
   }
 }
 
+async function scanLoop() {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+  while (scanning) {
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    if (w && h) {
+      canvas.width = w;
+      canvas.height = h;
+      ctx.drawImage(video, 0, 0, w, h);
+      const results = await ZXingWASM.readBarcodes(ctx.getImageData(0, 0, w, h), {
+        formats: FORMATS,
+        tryHarder: true,
+        maxNumberOfSymbols: 1,
+      });
+      const hit = results.find((r) => r.isValid);
+      if (hit && scanning) {
+        onScanSuccess(hit.text);
+        return;
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+}
+
 async function startScan() {
   startBtn.disabled = true;
   stopBtn.disabled = false;
 
   try {
-    await html5QrCode.start(
-      { facingMode: "environment" },
-      { fps: 10, qrbox: { width: 250, height: 250 } },
-      onScanSuccess,
-      () => {}
-    );
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false,
+    });
+    video.srcObject = stream;
+    await video.play();
+    scanning = true;
+    scanLoop();
   } catch (err) {
     resultText.textContent = "スキャン開始に失敗しました: " + err;
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
+    stopScan();
   }
 }
 
-async function stopScan() {
-  try {
-    await html5QrCode.stop();
-  } catch (err) {
-    // already stopped
+function stopScan() {
+  scanning = false;
+  if (stream) {
+    stream.getTracks().forEach((t) => t.stop());
+    stream = null;
   }
+  video.srcObject = null;
   startBtn.disabled = false;
   stopBtn.disabled = true;
 }

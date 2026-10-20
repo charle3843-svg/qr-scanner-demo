@@ -3,7 +3,7 @@
 これは動作確認のために作ったサンプルです。
 
 スマホのカメラでQRコードやバーコード(EAN, UPC, CODE128など)を読み取るWebアプリです。
-HTML / CSS / JavaScript のみで作られており、[html5-qrcode](https://github.com/mebjas/html5-qrcode) ライブラリを使用しています。
+HTML / CSS / JavaScript のみで作られており、[zxing-wasm](https://github.com/Sec-ant/zxing-wasm)（zxing-cpp の WebAssembly 版）で読み取っています。
 
 ## 使い方
 
